@@ -39,6 +39,7 @@ def kk_k():
            (0, +5):pg.transform.rotozoom(kk_img1, -90, 1.0)}  #演習1
 
 
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -61,7 +62,7 @@ def main():
     vx, vy = +5, +5
     clock = pg.time.Clock()
     tmr = 0
-    
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
