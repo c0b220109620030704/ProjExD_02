@@ -24,12 +24,31 @@ def check_bound(rect: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+
+def kk_k():
+    kk_img0 = pg.transform.rotozoom(pg.image.load("ex02/fig/3.png"), 0, 2.0)
+    kk_img1 = pg.transform.flip(kk_img0, True, False)
+    return{(0, 0):kk_img0, 
+           (-5, 0):kk_img0,
+           (-5, -5):pg.transform.rotozoom(kk_img0, -45, 1.0),
+           (-5, +5):pg.transform.rotozoom(kk_img0, 45, 1.0),
+           (0, -5):pg.transform.rotozoom(kk_img1, 90, 1.0),
+           (+5, -5):pg.transform.rotozoom(kk_img1, 45, 1.0),
+           (+5, 0):pg.transform.rotozoom(kk_img1, 0, 1.0),
+           (+5, +5):pg.transform.rotozoom(kk_img1, -45, 1.0),
+           (0, +5):pg.transform.rotozoom(kk_img1, -90, 1.0)}  #演習1
+
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+
+    kk_imgs = kk_k()
+    kk_img = kk_imgs[(0,0)]
+
     kk_rct = kk_img.get_rect()
     kk_rct.center = 900, 400
     bd_img = pg.Surface((20, 20))
@@ -42,6 +61,7 @@ def main():
     vx, vy = +5, +5
     clock = pg.time.Clock()
     tmr = 0
+    
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -60,6 +80,7 @@ def main():
         if check_bound(kk_rct) != (True, True):
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
 
+        kk_img = kk_imgs[tuple(sum_mv)]
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rct)
         bd_rct.move_ip(vx, vy)
@@ -74,7 +95,7 @@ def main():
         pg.display.update()
         tmr += 1
         clock.tick(10)
-        clock.tick(50)
+        #clock.tick(50)
 
 if __name__ == "__main__":
     pg.init()
