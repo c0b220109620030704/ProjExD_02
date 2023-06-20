@@ -99,6 +99,7 @@ def main():
         clock.tick(10)
         #clock.tick(50)
 
+
 if __name__ == "__main__":
     pg.init()
     main()
